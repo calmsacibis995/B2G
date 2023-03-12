@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Copyright (c) 2023 Stefanos Stefanidis. All rights reserved.
+#
+# config.sh - Configure B2G build environment.
+#
+
 REPO=${REPO:-./repo}
 sync_flags=""
 
@@ -30,7 +35,8 @@ case `uname` in
 	exit -1
 esac
 
-GITREPO=${GITREPO:-"git://github.com/mozilla-b2g/b2g-manifest"}
+# Use our manifests instead of the Mozilla ones.
+GITREPO=${GITREPO:-"git://github.com/calmsacibis995/b2g-manifests"}
 BRANCH=${BRANCH:-master}
 
 while [ $# -ge 1 ]; do
@@ -178,6 +184,11 @@ case "$1" in
 	repo_sync $1
 	;;
 
+"emulator-10-arm"|"emulator-10-x86_64")
+	echo "Not supported yet!"
+	exit -1
+	;;
+
 "flo")
 	echo DEVICE=flo >> .tmp-config &&
 	repo_sync $1
@@ -274,6 +285,7 @@ case "$1" in
 	echo - "> Raspberry Pi boards"
 	echo - rpi "(Revision B)"
 	echo - rpi2b-l
+	echo - "> Generic devices"
 	echo - emulator
 	echo - emulator-jb
 	echo - emulator-kk
@@ -282,6 +294,8 @@ case "$1" in
 	echo - emulator-x86-jb
 	echo - emulator-x86-kk
 	echo - emulator-x86-l
+	echo - emulator-10-arm "(From KaiOS)"
+	echo - emulator-10-x86_64 "(From KaiOS)"
 	echo "> Sony Xperia devices"
 	echo - aries "(Z3 Compact KK)"
 	echo - aries-l "(Z3 Compact L)"
@@ -308,4 +322,5 @@ fi
 
 mv .tmp-config .config
 
-echo Run \|./build.sh\| to start building
+echo All done.
+echo Run \|./build.sh\| to start building.
