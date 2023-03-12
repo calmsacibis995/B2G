@@ -36,7 +36,7 @@ case `uname` in
 esac
 
 # Use our manifests instead of the Mozilla ones.
-GITREPO=${GITREPO:-"git://github.com/calmsacibis995/b2g-manifests"}
+GITREPO=${GITREPO:-"https://github.com/calmsacibis995/b2g-manifests"}
 BRANCH=${BRANCH:-master}
 
 while [ $# -ge 1 ]; do
